@@ -170,6 +170,12 @@ header ul li:first-child {
   text-align: center;
   padding: 5px;
 }
+.micBG a:hover {
+  background-color: #3f3f3f;
+}
+.micBG a:active {
+  background-color: #242425;
+}
 .camBG {
   position: absolute;
   top: 341px;
@@ -181,6 +187,12 @@ header ul li:first-child {
   display: block;
   text-align: center;
   padding: 5px;
+}
+.camBG a:hover {
+  background-color: #3f3f3f;
+}
+.camBG a:active {
+  background-color: #242425;
 }
 .info h2 {
   color: #BA002D;
