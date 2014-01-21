@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+	console.log('Slider');
+
 	$('.bxslider').bxSlider({
 		controls: false,
 		preloadImages: 'visible',
@@ -76,7 +78,7 @@ var flashReady = function(){
 	var microphones = flash.getMicrophones();
 	microphoneIndex = 0;
 	for(var i = 0; i < microphones.length; i++){
-		$('.micBG').append('<a href="#" class="mic">' + microphones[i] + '</a>');
+		$('.micBG').append('<a href="#" class="mic" id="' + i + '">' + microphones[i] + '</a>');
 	}
 
 	$('.microphone').on('mouseenter', function(e){
@@ -91,7 +93,8 @@ var flashReady = function(){
 
 	$('.mic').on('click', function(e){
 		e.preventDefault();
-		console.log(event.currentTarget);
+		microphoneIndex = event.currentTarget.id;
+		console.log(microphoneIndex);
 	})
 
 	var camBG = $('.camBG');
@@ -100,7 +103,7 @@ var flashReady = function(){
 	var cameras = flash.getCameras();
 	cameraIndex = 0;
 	for(var i = 0; i < cameras.length; i++){
-		$('.camBG').append('<a href="#" class="cam">' + cameras[i] + '</a>');
+		$('.camBG').append('<a href="#" class="cam" id="' + i + '">' + cameras[i] + '</a>');
 	}
 
 	$('.camera').on('mouseenter', function(e){
@@ -115,7 +118,8 @@ var flashReady = function(){
 
 	$('.cam').on('click', function(e){
 		e.preventDefault();
-		console.log(event.currentTarget);
+		cameraIndex = event.currentTarget.id;
+		console.log(cameraIndex);
 	});
 
 	filename = 'hobbit';
