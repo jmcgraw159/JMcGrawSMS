@@ -129,9 +129,9 @@ header ul li:first-child {
   -webkit-appearance: none !important;
   top: 50px;
   left: -29px;
-  transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  -webkit-transform: rotate(90deg);
+  transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
   background: #1E1E1E;
   height: 5px;
   width: 80px;
@@ -160,8 +160,8 @@ header ul li:first-child {
 }
 .micBG {
   position: absolute;
-  top: 341px;
-  left: 810px;
+  top: 265px;
+  left: 820px;
   background-color: #303030;
   width: 100px;
 }
@@ -178,7 +178,7 @@ header ul li:first-child {
 }
 .camBG {
   position: absolute;
-  top: 341px;
+  top: 310px;
   left: 850px;
   background-color: #303030;
   width: 100px;
@@ -208,6 +208,7 @@ header ul li:first-child {
   -webkit-border-radius: 5px;
   border-radius: 5px;
   border: 1px solid #e7e3d9;
+  margin-bottom: 20px;
 }
 .comments h3 {
   color: #BA002D;

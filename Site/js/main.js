@@ -34,6 +34,20 @@ var connected = function(success, error){
 	}
 }
 
+vidSwitch = true;
+
+var seekTime = function(time){
+	vidTime = time;
+
+	if(vidSwitch){
+		$('.seek').val(vidTime);
+	}
+}
+
+var getDuration = function(duration){
+	vidDuration = duration;
+}
+
 var flashReady = function(){
 
 	console.log('Flash Ready');
@@ -125,7 +139,52 @@ var flashReady = function(){
 	filename = 'hobbit';
 
 	$('.record').on('click', function(e){
+		console.log(cameraIndex, microphoneIndex);
 		flash.startRecording(filename, cameraIndex, microphoneIndex);
 	});
 
+	$('.volumeControl').on('input change', function(e){
+		var volume = $('.volumeControl').val();
+		flash.setVolume(volume / 100);
+		console.log(volume);
+	});
+
+	seek = $('.seek').val(0);
+
+	$('.seek').on('input change', function(e){
+
+		var seek_bar = $('.seek').val();
+		var xPos = seek_bar;
+		var seekTime = 0;
+
+		var seekTime  = xPos / 200 * vidDuration;
+
+		vidSwitch = false;
+
+		flash.setTime(seekTime);
+	});
+
+	$('.seek').on('mouseup', function(e){
+		vidSwitch = true;
+	});
+
 }
+
+// var myDataRef = new Firebase('');
+
+// $('#button').on('click', function (e) {
+//       var name = $('#nameInput').val();
+//       var text = $('#messageInput').val();
+//       myDataRef.push({name: name, text: text});
+//       $('#messageInput').val('');
+// });
+
+// myDataRef.on('child_added', function(snapshot) {
+//     var message = snapshot.val();
+// 	displayChatMessage(message.name, message.text);
+// });
+
+// function displayChatMessage(name, text) {
+// 	$('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+// 	$('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+// };

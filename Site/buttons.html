@@ -6,6 +6,7 @@
 	<script src="js/jquery-1.10.2.js"></script>
 	<script type="text/javascript" src="js/swfobject.js"></script>
     <script type="text/javascript" src="js/sms_setup.js"></script>
+    <script src='https://cdn.firebase.com/v0/firebase.js'></script>
 	<link rel="stylesheet" href="css/skeleton.css">
 	<link rel="stylesheet" href="css/styles.css">
 </head>
@@ -37,11 +38,9 @@
 			<input type="range" class="seek">
 			<a href="#" class="record"><img src="img/record.png"></a>
 			<a href="#" class="microphone"><img src="img/microphone.png"></a>
-			<div class="micBG">
-			</div>
+			<div class="micBG"></div>
 			<a href="#" class="camera"><img src="img/camera.png"></a>
-			<div class="camBG">
-			</div>
+			<div class="camBG"></div>
 		</div>
 	</div>
 	<div class="sixteen columns info">
@@ -52,7 +51,7 @@
 		<h3>Add comment</h3>
 		<form action="#">
 			<textarea name="#"cols="30" rows="10"></textarea>
-			<input type="submit" value="Submit">
+			<input type="submit" id="button" value="Submit">
 		</form>
 		<div class="comment">
 			<img src="img/portrait.png">
@@ -65,6 +64,9 @@
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit eum enim aliquam ad quidem fuga rerum totam blanditiis aperiam accusantium. Laudantium, esse qui voluptatum rerum rem eos id reprehenderit debitis?</p>
 		</div>
 	</div>
+	<footer>
+		<small>&copy; 2014 LayerDen.</small>
+	</footer class="sixteen columns">
 	<script src="js/main.js"></script>
 </body>
 </html>
