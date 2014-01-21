@@ -1,3 +1,27 @@
+$(document).ready(function(){
+
+	$('.bxslider').bxSlider({
+		controls: false,
+		preloadImages: 'visible',
+		touchEnabled: true,
+		oneToOneTouch: true,
+		auto: true
+	});
+});
+
+var loginNav = $('.nav');
+loginNav.hide();
+
+$('.login').on('mouseenter', function(e){
+	e.preventDefault();
+	loginNav.show();
+});
+
+loginNav.on('mouseleave', function(e){
+	e.preventDefault();
+	loginNav.hide();
+});
+
 var connected = function(success, error){
 
 	if(success){
@@ -11,19 +35,6 @@ var connected = function(success, error){
 var flashReady = function(){
 
 	console.log('Flash Ready');
-
-	var loginNav = $('.nav');
-	loginNav.hide();
-
-	$('.login').on('mouseenter', function(e){
-		e.preventDefault();
-		loginNav.show();
-	});
-
-	loginNav.on('mouseleave', function(e){
-		e.preventDefault();
-		loginNav.hide();
-	});
 
 	var volumeBG = $('.vcBG');
 	volumeBG.hide();
@@ -63,8 +74,7 @@ var flashReady = function(){
 	micBG.hide();
 
 	var microphones = flash.getMicrophones();
-	microphoneIndex = microphones[0];
-	console.log(microphoneIndex);
+	microphoneIndex = 0;
 	for(var i = 0; i < microphones.length; i++){
 		$('.micBG').append('<a href="#" class="mic">' + microphones[i] + '</a>');
 	}
@@ -88,8 +98,7 @@ var flashReady = function(){
 	camBG.hide();
 
 	var cameras = flash.getCameras();
-	cameraIndex = cameras[0];
-	console.log(cameraIndex);
+	cameraIndex = 0;
 	for(var i = 0; i < cameras.length; i++){
 		$('.camBG').append('<a href="#" class="cam">' + cameras[i] + '</a>');
 	}
@@ -109,22 +118,10 @@ var flashReady = function(){
 		console.log(event.currentTarget);
 	});
 
-	filename = 'this_is_a_test';
+	filename = 'hobbit';
 
 	$('.record').on('click', function(e){
 		flash.startRecording(filename, cameraIndex, microphoneIndex);
 	});
 
 }
-
-// $(document).ready(function(){
-
-//   $('.bxslider').bxSlider({
-// 	controls: false,
-// 	preloadImages: 'visible',
-// 	touchEnabled: true,
-// 	oneToOneTouch: true,
-// 	auto: true
-//   });
-
-// });
