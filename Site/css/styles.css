@@ -35,7 +35,7 @@ header ul li {
 header ul li:first-child {
   border-bottom: .5px solid #c7c5bd;
 }
-.login {
+.login, .logout {
   text-align: right;
   font-family: 'AvenirNext-DemiBold', sans-serif;
   font-size: 22px;
@@ -251,24 +251,25 @@ header ul li:first-child {
   font-size: 16px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
-.comment {
+/*.comment {
   margin-bottom: 20px;
+  display: block;
 }
 .comment img {
   margin-left: 50px;
 }
 .comment a {
-  display: block;
   text-align: center;
   width: 8.3%;
   margin-left: 49px;
 }
 .comment p {
   float: right;
-  width: 85%;
+  width: 82%;
+  padding-right: 10px;
   margin-top: -110px;
   color: #968f88;
-}
+}*/
 footer {
   text-align: center;
   margin: 20px auto;

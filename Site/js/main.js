@@ -170,21 +170,61 @@ var flashReady = function(){
 
 }
 
-// var myDataRef = new Firebase('');
+var myDataRef = new Firebase('https://layerden.firebaseio.com');
 
-// $('#button').on('click', function (e) {
-//       var name = $('#nameInput').val();
-//       var text = $('#messageInput').val();
-//       myDataRef.push({name: name, text: text});
-//       $('#messageInput').val('');
-// });
+var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
+  if (error) {
+    // an error occurred while attempting login
+    console.log(error);
+  } else if (user) {
+    // user authenticated with Firebase
+    console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
 
-// myDataRef.on('child_added', function(snapshot) {
-//     var message = snapshot.val();
-// 	displayChatMessage(message.name, message.text);
-// });
+    $('.nav').empty();
+    $('.login').attr("class","two columns omega logout");
+    $('.logout').text("Logout");
 
-// function displayChatMessage(name, text) {
-// 	$('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
-// 	$('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
-// };
+    $('#button').on('click', function (e) {
+      var name = user.username;
+      var text = $('#message').val();
+      myDataRef.push({name: name, text: text});
+      $('#message').val('');
+	});
+
+	myDataRef.on('child_added', function(snapshot) {
+	    var message = snapshot.val();
+		displayChatMessage(message.name, message.text);
+	});
+
+	function displayChatMessage(name, text) {
+		console.log('Test');
+		$('.commentContainer').append('<div class="comment"><img src="' + user.avatar_url + '"/><a href="#">' + name + '</a><p>' + text + '</p></div>');
+		// $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('.comments'));
+		$('.commentContainer')[0].scrollTop = $('.comments')[0].scrollHeight;
+	};
+
+    $('.logout').on('click', function(e){
+	e.preventDefault();
+	log = '';
+	console.log('Logged Out');
+	auth.logout();
+})
+
+  } else {
+  	// $('.nav').empty();
+  	// $('.nav').append('<li><a href="#" id="github">Github</a></li><li><a href="#" id="twitter">Twitter</a></li>');
+    $('.logout').attr("class","two columns omega login");
+    $('.login').text("Login");
+  }
+
+});
+
+$('#github').on('click', function(e){
+	e.preventDefault();
+	auth.login('github');
+});
+
+$('#twitter').on('click', function(e){
+	e.preventDefault();
+	auth.login('twitter');
+});
