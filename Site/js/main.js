@@ -24,6 +24,8 @@ loginNav.on('mouseleave', function(e){
 	loginNav.hide();
 });
 
+$('.comments').hide();
+
 var connected = function(success, error){
 
 	if(success){
@@ -178,43 +180,65 @@ var auth = new FirebaseSimpleLogin(myDataRef, function(error, user) {
     console.log(error);
   } else if (user) {
     // user authenticated with Firebase
-    console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
+    $('.messageLogin').hide();
+    $('.comments').show();
+
+    console.log(user);
 
     $('.nav').empty();
     $('.login').attr("class","two columns omega logout");
     $('.logout').text("Logout");
 
+    if(user.provider == 'github'){
+    	photo = user.avatar_url;
+    	console.log(photo);
+    }else {
+    	photo = user.profile_image_url;
+    	console.log(photo);
+    }
+
+    $('.logout').on('click', function(e){
+		e.preventDefault();
+		log = '';
+		$('.comments').hide();
+		console.log('Logged Out');
+		auth.logout();
+	})
+
     $('#button').on('click', function (e) {
-      var name = user.username;
-      var text = $('#message').val();
-      myDataRef.push({name: name, text: text});
-      $('#message').val('');
+  		e.preventDefault();
+		var name = user.username;
+		var text = $('#message').val();
+		myDataRef.push({name: name, text: text, photo:photo});
+		$('#message').val('');
 	});
 
 	myDataRef.on('child_added', function(snapshot) {
 	    var message = snapshot.val();
-		displayChatMessage(message.name, message.text);
+		displayMessage(message.name, message.text, message.photo);
 	});
 
-	function displayChatMessage(name, text) {
-		console.log('Test');
-		$('.commentContainer').append('<div class="comment"><img src="' + user.avatar_url + '"/><a href="#">' + name + '</a><p>' + text + '</p></div>');
-		// $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('.comments'));
+	function displayMessage(name, text, photo) {
+		$('.commentContainer').prepend('<div class="comment"><img src="' + photo + '"</><a href="#">' + name + '</a><p>' + text + '</p></div>');
 		$('.commentContainer')[0].scrollTop = $('.comments')[0].scrollHeight;
 	};
 
-    $('.logout').on('click', function(e){
-	e.preventDefault();
-	log = '';
-	console.log('Logged Out');
-	auth.logout();
-})
-
   } else {
-  	// $('.nav').empty();
-  	// $('.nav').append('<li><a href="#" id="github">Github</a></li><li><a href="#" id="twitter">Twitter</a></li>');
+  	$('.nav').empty();
+  	$('.nav').append('<li><a href="#" id="github">Github</a></li><li><a href="#" id="twitter">Twitter</a></li>');
     $('.logout').attr("class","two columns omega login");
     $('.login').text("Login");
+    $('.messageLogin').show();
+
+    $('#github').on('click', function(e){
+	e.preventDefault();
+	auth.login('github');
+	});
+
+	$('#twitter').on('click', function(e){
+		e.preventDefault();
+		auth.login('twitter');
+	});
   }
 
 });
